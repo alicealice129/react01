@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
-import Moment from 'react-moment';
+// import Moment from 'react-moment';
 
 class DishDetail extends Component {
     
@@ -12,7 +12,8 @@ class DishDetail extends Component {
                             <li key={comment.id}>
                                 <p>{comment.comment}</p>
                                 <p>-- {comment.author}, 
-                                    <Moment format="ll">{comment.date}</Moment>
+                                    {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}
+                                    {/* <Moment format="ll">{comment.date}</Moment> */}
                                 </p>
                             </li>
                 );                 
@@ -38,7 +39,7 @@ class DishDetail extends Component {
                 <React.Fragment>
                 <div className="col-12 col-md-5 m-1">
                     <Card>
-                        <CardImg width="100%" object src={dish.image} alt={dish.name} />
+                        <CardImg width="100%" src={dish.image} alt={dish.name} />
                         <CardBody>
                             <CardTitle>{dish.name}</CardTitle>
                             <CardText>{dish.description}</CardText>
@@ -63,16 +64,21 @@ class DishDetail extends Component {
     render() {
         
         const dish = this.props.dish;
-        // console.log(dish);
         const dishItem = this.renderDish(dish);
-        if (dish == null) {
-            return (<div></div>)
+        if (dish != null) {
+            return(
+                <div className="container">
+                    <div className="row">
+                        {dishItem}
+                    </div>
+                </div>
+            );   
+            
+        } else {
+            return(
+                <div></div>
+            );
         }
-        return(
-            <div className="row">
-                {dishItem}
-            </div>
-        );   
     };
     
 }
