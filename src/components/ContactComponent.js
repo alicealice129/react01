@@ -19,10 +19,18 @@ const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val
         }
     
         handleSubmit(values) {
-            console.log("Current State is:" + JSON.stringify(values));
-            alert("Current State is:" + JSON.stringify(values));
+            // console.log("Current State is:" + JSON.stringify(values));
+            // alert("Current State is:" + JSON.stringify(values));
             this.props.resetFeedbackForm();
             // event.preventDefault()
+            this.props.postFeedback(
+                values.firstname, 
+                values.lastname, 
+                values.telnum, 
+                values.email, 
+                values.agree, 
+                values.contactType, 
+                values.message);
         }
     
         render() {
